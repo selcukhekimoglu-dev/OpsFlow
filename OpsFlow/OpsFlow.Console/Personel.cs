@@ -11,7 +11,7 @@ namespace OpsFlow.Console
         public string Soyad { get; set; }
         public string Departman { get; set; }
         public string Pozisyon { get; set; }
-        private decimal Maas { get; set; }
+        public decimal Maas { get; private set; }
 
         public Personel(int id, string ad, string soyad, string departman, string pozisyon, decimal maas)
         {
@@ -20,7 +20,27 @@ namespace OpsFlow.Console
             this.Soyad = soyad;
             this.Departman = departman;
             this.Pozisyon = pozisyon;
-            this.Maas = maas;
+            if (maas > 0)
+            {
+                this.Maas = maas;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException(nameof(maas), "Maaş sıfırdan büyük olmalıdır.");
+            }
+        }
+        public void MaasGuncelle(decimal yeniMaas)
+        {
+            if (yeniMaas > 0)
+            {
+                this.Maas = yeniMaas;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(yeniMaas),
+                    "Maaş sıfırdan büyük olmalıdır.");
+            }
         }
     }
 }
